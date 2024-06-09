@@ -1,0 +1,32 @@
+{
+   "author": "Adam Nathaniel Davis <me@adamdavis.codes> (https://adamdavis.codes)",
+   "dependencies": {
+      "eslint": "^8.57.0",
+      "eslint-config-standard-with-typescript": "^43.0.1",
+      "eslint-plugin-import": "^2.29.1",
+      "eslint-plugin-n": "^16.6.2",
+      "eslint-plugin-promise": "^6.1.1"
+   },
+   "description": "Coding Exercises",
+   "devDependencies": {
+      "@types/node": "^20.11.24",
+      "concurrently": "^8.2.2",
+      "env-cmd": "^10.1.0",
+      "nodemon": "^3.1.0",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.3.3"
+   },
+   "keywords": [],
+   "license": "ISC",
+   "main": "index.js",
+   "name": "coding-exercises",
+   "scripts": {
+      "build": "npx tsc",
+      "dev": "env-cmd -f .env.local concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+      "dev-no-watch": "env-cmd -f .env.local concurrently \"npx tsc\" \"node dist/index.js\"",
+      "lint": "eslint src/**/*.ts",
+      "start": "node dist/index.js"
+   },
+   "type": "module",
+   "version": "0.0.1"
+}

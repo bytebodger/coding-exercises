@@ -1,0 +1,14 @@
+{
+   "compilerOptions": {
+      "allowJs": false,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
+      "noImplicitAny": true,
+      "outDir": "dist",
+      "skipLibCheck": true,
+      "strict": true,
+      "target": "es2022"
+   }
+}
