@@ -25,30 +25,33 @@
    s consists of English letters, digits, symbols and spaces.
 
    Solution:
-   Use Set() to compare the deduped arrays of characters to the full array of characters.
+   Create an allCharactersAreUnique() function.
    Establish a maxWindow size and work downward from there so that as soon as a unique substring is found we can exit the process.
    For each potential window size, start at the beginning of the string and step through the characters until you've checked every
       full window that can fit inside the string.
  */
 
 export const lengthOfLongestSubstring = (word: string): number => {
-   let maxLength = 1;
-   const characters = word.split('');
-   if (characters.length < 2)
-      return characters.length;
-   else if (new Set(characters).size === characters.length)
-      return characters.length;
-   const maxWindow = characters.length - 1 > 96 ? 96 : characters.length - 1;
+   const allCharactersAreUnique = (characters: string): boolean => {
+      const foundCharacters: string[] = [];
+      for (let position = 0; position < characters.length; position++) {
+         const character = characters[position];
+         if (foundCharacters.includes(character))
+            return false;
+         foundCharacters.push(character);
+      }
+      return true;
+   }
+
+   if (allCharactersAreUnique(word))
+      return word.length;
+   const maxWindow = word.length - 1 > 96 ? 96 : word.length - 1;
    for (let window = maxWindow; window > 1; window--) {
-      if (maxLength > 1)
-         break;
-      for (let startPosition = 0; startPosition + window <= characters.length; startPosition++) {
-         if (maxLength > 1)
-            break;
-         const substring = characters.slice(startPosition, startPosition + window);
-         if (new Set(substring).size === substring.length)
-            maxLength = window;
+      for (let startPosition = 0; startPosition + window <= word.length; startPosition++) {
+         const substring = word.substring(startPosition, startPosition + window);
+         if (allCharactersAreUnique(substring))
+            return window;
       }
    }
-   return maxLength;
+   return 1;
 }
