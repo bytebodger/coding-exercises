@@ -31,7 +31,7 @@
       full window that can fit inside the string.
  */
 
-export const lengthOfLongestSubstring = (word: string): number => {
+export const lengthOfLongestSubstring = (text: string): number => {
    const allCharactersAreUnique = (characters: string): boolean => {
       const foundCharacters: string[] = [];
       for (let position = 0; position < characters.length; position++) {
@@ -43,12 +43,12 @@ export const lengthOfLongestSubstring = (word: string): number => {
       return true;
    }
 
-   if (allCharactersAreUnique(word))
-      return word.length;
-   const maxWindow = word.length - 1 > 96 ? 96 : word.length - 1;
+   if (allCharactersAreUnique(text))
+      return text.length;
+   const maxWindow = text.length - 1 > 96 ? 96 : text.length - 1;
    for (let window = maxWindow; window > 1; window--) {
-      for (let startPosition = 0; startPosition + window <= word.length; startPosition++) {
-         const substring = word.substring(startPosition, startPosition + window);
+      for (let startPosition = 0; startPosition + window <= text.length; startPosition++) {
+         const substring = text.substring(startPosition, startPosition + window);
          if (allCharactersAreUnique(substring))
             return window;
       }

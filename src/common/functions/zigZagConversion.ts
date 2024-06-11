@@ -41,14 +41,14 @@
    Then loop back through the matrix and join() it back into a string.
  */
 
-export const convertZigZag = (word: string, rows: number) => {
+export const convertZigZag = (text: string, rows: number) => {
    if (rows === 1)
-      return word;
+      return text;
    let output = '';
    const grid: string[][] = [];
    const lettersPerZig = rows === 1 ? 1 : rows + (rows - 2);
    const columnsPerZig = rows === 1 ? 1 : rows - 1;
-   const totalZigs = Math.ceil(word.length / lettersPerZig);
+   const totalZigs = Math.ceil(text.length / lettersPerZig);
    const totalColumns = totalZigs * columnsPerZig;
    for (let i = 0; i < rows; i++) {
       grid[i] = new Array(totalColumns).fill('');
@@ -56,8 +56,8 @@ export const convertZigZag = (word: string, rows: number) => {
    let nextY = 0;
    let nextX = 0;
    let descending = true;
-   for (let position = 0; position < word.length; position++) {
-      grid[nextY][nextX] = word[position];
+   for (let position = 0; position < text.length; position++) {
+      grid[nextY][nextX] = text[position];
       if (descending)
          nextY++;
       else {

@@ -34,15 +34,15 @@
    is 3 / 6 = 0.5
 
    In the second case, all 4 cells contain battleships, resulting in a probability of 1.0 of hitting a battleship.
+
+   Solution:
+   Since all occupied squares are represented by 1, we can stringify the array, filter out the characters that equal '1',
+   and then count those values to determine the totalOccupiedSquares.
  */
 
-export const getHitProbability = (R: number, C: number, G: number[][]) => {
-   /*
-      Since all occupied squares are represented by 1, we can stringify the array, filter out the characters that equal '1',
-      and then count those values to determine the totalOccupiedSquares.
-    */
-   const grid = JSON.stringify(G).split('');
-   const totalOccupiedSquares = grid.filter(square => square === '1').length;
-   const totalSquares = R * C;
+export const getHitProbability = (rows: number, columns: number, grid: number[][]) => {
+   const map = JSON.stringify(grid).split('');
+   const totalOccupiedSquares = map.filter(square => square === '1').length;
+   const totalSquares = rows * columns;
    return totalSquares === 0 ? 0.0 : totalOccupiedSquares / totalSquares;
 }

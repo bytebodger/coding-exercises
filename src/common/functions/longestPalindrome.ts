@@ -22,7 +22,7 @@
       window to see if it's a palindrome.
  */
 
-export const longestPalindrome = (word: string): string => {
+export const longestPalindrome = (text: string): string => {
    const isPalindrome = (letters: string): boolean => {
       let leftPointer = 0;
       let rightPointer = letters.length - 1;
@@ -35,14 +35,14 @@ export const longestPalindrome = (word: string): string => {
       return true;
    }
 
-   if (isPalindrome(word))
-      return word;
-   for (let window = word.length - 1; window > 1; window--) {
-      for (let startPosition = 0; startPosition + window <= word.length; startPosition++) {
-         const substring = word.substring(startPosition, startPosition + window);
+   if (isPalindrome(text))
+      return text;
+   for (let window = text.length - 1; window > 1; window--) {
+      for (let startPosition = 0; startPosition + window <= text.length; startPosition++) {
+         const substring = text.substring(startPosition, startPosition + window);
          if (isPalindrome(substring))
             return substring;
       }
    }
-   return word[0];
+   return text[0];
 }
