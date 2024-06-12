@@ -34,7 +34,7 @@
  */
 
 class NestedInteger {
-   value: number | NestedInteger[]
+   value: number | NestedInteger[];
 
    constructor (value?: number) {
       this.value = value ?? [];
