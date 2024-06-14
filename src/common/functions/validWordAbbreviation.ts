@@ -41,6 +41,8 @@
    Solution:
    First parse through the abbreviation string to segment out the blocks of strings from the numbers.
    Then use those blocks to recreate the original word and then return whether the recreated word equals the original word.
+
+   Complexity: O(N)
  */
 
 export const validWordAbbreviation = (word: string, abbreviation: string): boolean => {

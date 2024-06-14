@@ -31,6 +31,8 @@
    Created recursive getWeightedSum function that loops through the current list while keeping track of the depth.
    If the current item is solely an integer, add it to the sum (value * depth).
    If the current item is itself a list, then call getWeightedSum again while incrementing the depth.
+
+   Complexity: O(N)
  */
 
 class NestedInteger {

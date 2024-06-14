@@ -28,117 +28,60 @@
    The answer is guaranteed to fit in a 32-bit integer.
 
    Solution:
-   OMFG is a royal PITA!
-   I created several "working" solutions that nevertheless failed time/memory constraints when this was run against some of the
-      huge strings used in the later tests.  Ultimately, to satisfy those constraints you need to do a lot of manual parsing of the
-      original string (as opposed to, say, breaking the string up into arrays) because to do otherwise leads it to run out of memory
-      on the very-large tests.
-   Create a getNumber() function.  It accepts a text string and a position and returns a string.  The purpose is to find the next number
-      in the string starting from any given position.  This is a useful helper function because numbers aren't limited to being single-digit.
-   Use .replaceAll() to remove all whitespace.
-   First pass the cleaned-up text through multiplyAndDivide().  The purpose of this function is to go through the string and evaluate all
-      instances of 1-or-more consecutive multiplication/division operations.  (e.g., 4*3/2*5)  Once these are evaluated out, the resulting
-      string will contains nothing but addition/subtraction operations and can simply be evaluated from left-to-right.  This function
-      takes a string like "7+4*5/10-9" and converts it to "7+2-9".
-   multiplyAndDivide() will call getConsecutiveMultipliersAndDividers(). This accepts a position argument.  From that position in the
-      spaced-cleaned string it will return the full string of consecutive multiply/divide operations.  For example, if the string looks
-      like this: "8-4+3*10/6*2-9+7" and it's called with a position argument of 4, it will return "3*10/6*2".
-   multiplyAndDivide() will then call resolveMultipliersAndDividers().  This accepts a single string or consecutive multiply/divide
-      operations. (e.g., "3*10/6*2") And returns the evaluated string. (e.g., "90")
-   After multiplyAndDivide() is called, the resulting string is passed into calculateSum().  This takes a string of add/subtract-only
-      operations (e.g., "7+2+9") and returns a numerical sum (e.g., 18).
+   First create a helper function - getNumber() - that uses regex search to find the number at the beginning of a string.
+   Then create multiplyAndDivide(), a recursive function that takes a string, finds the firstNumber, operator, and secondNumber
+      from that string, and calculates the product.  It calls itself until there's nothing but a number left in the calculation.
+   Remove all whitespace from the input text.
+   Split the text on '+'.
+   For each additionBlock created in the previous step, split the text on '-'.
+      Create a new .map() of the '-'-split array.  If the element contains only a number, then just return it.  If it contains
+      multiply and/or divide operations, get the fully-evaluated value from multiplyAndDivide().
+      Collapse the subtractionBlock elements to a single value.  For example, [8, 3, 1, 2] will result in 8 - 3 - 1 - 2 = 2.
+      Add the subtractionBlock value to the sum.
+   For each additionBlock element that does NOT contain a '-' symbol, add it to the sum (if it's a standalone number) or add the
+      result of multiplyAndDivide() (if contains those operations).
+
+   Complexity: O(N)
  */
 
 export const calculate = (text: string): number => {
-   const calculateSum = (text: string, position: number, runningTotal: number): number => {
-      let currentPosition = position;
-      let currentRunningTotal = runningTotal;
-      const operator = text[currentPosition];
-      currentPosition++;
-      const nextNumber = getNumber(text, currentPosition);
-      currentPosition += nextNumber.length;
-      if (operator === '+')
-         currentRunningTotal += Number(nextNumber);
-      else if (operator === '-')
-         currentRunningTotal -= Number(nextNumber);
-      return currentPosition >= text.length ? currentRunningTotal : calculateSum(text, currentPosition, currentRunningTotal);
+   const getNumber = (text: string): string => {
+      const nonNumberIndex = text.search(/[^0-9]/);
+      return nonNumberIndex === -1 ? text : text.substring(0, nonNumberIndex);
    }
 
-   const getConsecutiveMultipliersAndDividers = (position: number): string => {
-      let consecutiveMultipliersAndDividers = '';
-      let plusOrMinusFound = false;
-      let currentPosition = position;
-      while (!plusOrMinusFound) {
-         if (currentPosition >= noSpaceText.length)
-            break;
-         const character = noSpaceText[currentPosition];
-         if (['+', '-'].includes(character))
-            plusOrMinusFound = true;
-         else
-            consecutiveMultipliersAndDividers += character;
-         currentPosition++;
-      }
-      return consecutiveMultipliersAndDividers;
-   }
-
-   const getNumber = (text: string, position: number): string => {
-      let nextNumber = '';
-      let operatorFound = false;
-      let currentPosition = position;
-      while (!operatorFound) {
-         if (currentPosition >= text.length)
-            break;
-         const character = text[currentPosition];
-         if (character.match(/[0-9]/))
-            nextNumber += character;
-         else
-            operatorFound = true;
-         currentPosition++;
-      }
-      return nextNumber;
-   }
-
-   const multiplyAndDivide = (): string => {
-      let simplifiedText = '';
-      let position = 0;
-      while (position < noSpaceText.length) {
-         const firstOperand = getNumber(noSpaceText, position);
-         position += firstOperand.length;
-         const operator = noSpaceText[position];
-         position++;
-         if (['*', '/'].includes(operator)) {
-            const consecutiveMultipliersAndDividers = getConsecutiveMultipliersAndDividers(position - firstOperand.length - 1);
-            const resolvedMultipliersAndDividers = resolveMultipliersAndDividers(consecutiveMultipliersAndDividers);
-            position += consecutiveMultipliersAndDividers.length - firstOperand.length - 1;
-            simplifiedText += resolvedMultipliersAndDividers;
-         } else {
-            simplifiedText += firstOperand;
-            if (operator !== undefined)
-               simplifiedText += operator;
-         }
-      }
-      return simplifiedText;
-   }
-
-   const resolveMultipliersAndDividers = (text: string): string => {
-      let position = 0;
-      const firstNumber = getNumber(text, position);
-      position += firstNumber.length;
-      const operator = text[position];
-      position++;
-      const secondNumber = getNumber(text, position);
-      position += secondNumber.length;
+   const multiplyAndDivide = (text: string): string => {
+      let currentText = text;
+      const firstNumber = getNumber(currentText);
+      currentText = currentText.replace(firstNumber, '');
+      const operator = currentText[0];
+      currentText = currentText.replace(operator, '');
+      const secondNumber = getNumber(currentText);
+      currentText = currentText.replace(secondNumber, '');
       let product: number = 0;
       if (operator === '*')
          product = Number(firstNumber) * Number(secondNumber);
       else if (operator === '/')
          product = Math.floor(Number(firstNumber) / Number(secondNumber));
-      const newText = product + text.substring(position);
-      return position >= text.length - 1 ? newText : resolveMultipliersAndDividers(newText);
+      return currentText === '' ? product.toString() : multiplyAndDivide(product + currentText);
    }
 
    const noSpaceText = text.replaceAll(' ', '');
-   const multipliedAndDivided = multiplyAndDivide();
-   const firstNumber = getNumber(multipliedAndDivided, 0);
-   return calculateSum(multipliedAndDivided, firstNumber.length - 1, Number(firstNumber));
+   const additionBlocks = noSpaceText.split('+');
+   let sum = 0;
+   additionBlocks.forEach(additionBlock => {
+      const subtractionBlocks = additionBlock.split('-');
+      if (subtractionBlocks.length > 1) {
+         const evaluatedSubtractionBlocks = subtractionBlocks.map(subtractionBlock => {
+            return subtractionBlock.search(/[^0-9]/) === -1 ? subtractionBlock : multiplyAndDivide(subtractionBlock);
+         })
+         let subtractionBlockValue = Number(evaluatedSubtractionBlocks.shift());
+         evaluatedSubtractionBlocks.forEach(value => {
+            subtractionBlockValue -= Number(value)
+         });
+         sum += subtractionBlockValue;
+      } else
+         sum += additionBlock.search(/[^0-9]/) === -1 ? Number(additionBlock) : Number(multiplyAndDivide(additionBlock));
+   })
+   return sum;
 }

@@ -26,6 +26,8 @@
    Recursively traverse the tree, adding a new Node for every node in the tree.
    Sort the Node array first by x then by y.
    Loop through the Node array and populate the verticalTraversal array based on the y location of each Node.
+
+   Complexity: O(Nlogn)
  */
 
 class TreeNode {

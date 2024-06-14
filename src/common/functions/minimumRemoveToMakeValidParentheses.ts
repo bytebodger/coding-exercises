@@ -42,6 +42,8 @@
    The last thing to do is to clean up any dangling ('s in the valid output.
       Loop through all of the remaining items in the unclosedLeftParenthesesPositions array.
       Use .slice() to extract those items from the valid output string.
+
+   Complexity: O(N)
  */
 
 export const minRemoveToMakeValid = (text: string): string => {
