@@ -33,6 +33,8 @@
    Track a variable for tallestSeen.
    If the height is taller than tallestSeen, add it to the oceanViews output array.
    If you've seen the tallest height, 'break' out of the loop.
+
+   Complexity: O(N)
  */
 
 export const findBuildings = (heights: number[]): number[] => {

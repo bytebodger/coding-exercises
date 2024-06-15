@@ -29,6 +29,8 @@
    If the supplied text is already a palindrome, return TRUE.  (All palindromes can remain a palindrome by removing the middle character.)
    Remove the first character. If it's a palindrome, return TRUE.  Else...
    Remove the last character.  Return whether or not the resulting string is a palindrome.
+
+   Complexity: O(N)
  */
 
 export const validPalindrome = (text: string): boolean => {

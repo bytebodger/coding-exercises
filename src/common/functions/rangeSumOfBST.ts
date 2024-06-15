@@ -23,6 +23,8 @@
    Pretty standard recursive tree traversal.  Since there's no implied structure to the values of the tree's nodes (e.g., all nodes
       must be larger than their parents), I'm not sure of any way to speed this up since you have to visit every node to see if it's
       within the request min/max range.
+
+   Complexity: O(N)
  */
 
 class TreeNode {

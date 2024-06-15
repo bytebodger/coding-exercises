@@ -48,6 +48,8 @@
    1 <= w.length <= 10^4
    1 <= w[i] <= 10^5
    pickIndex will be called at most 10^4 times.
+
+   Complexity: O(N)
  */
 
 export class Solution {
