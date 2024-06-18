@@ -46,6 +46,9 @@
       If the current node has a value for node.random, use map.get() to get this value.
    This works because first we're drilling down through the tree to create NEW _Nodes for each of the existing nodes.
       Then we look at each node and, if it has values for node.next or node.random, we're grabbing the NEW equivalent node about of the map.
+
+   Or alternatively...
+      just use structuredClone(head).
  */
 
 class _Node {
@@ -61,6 +64,7 @@ class _Node {
 }
 
 export const copyRandomList = (head: _Node | null): _Node | null => {
+   /*
    const convertListToMap = (node: _Node | null) => {
       if (node === null)
          return;
@@ -81,4 +85,6 @@ export const copyRandomList = (head: _Node | null): _Node | null => {
          node.random = map.get(node.random);
    });
    return map.get(head);
+   */
+   return structuredClone(head);
 }
