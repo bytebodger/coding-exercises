@@ -1,4 +1,5 @@
 /*
+   Simplify Path
    Tags: String, Stack
    Given an absolute path for a Unix-style file system, which begins with a slash '/', transform this path into its simplified
    canonical path.

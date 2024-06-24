@@ -1,4 +1,5 @@
 /*
+   Dot Product of Two Sparse Vectors
    Tags: Array, Hash Table, Two Pointers, Design
    Given two sparse vectors, compute their dot product.
 

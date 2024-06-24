@@ -1,4 +1,5 @@
 /*
+   Random Pick With Weight
    Tags: Array, Math, Binary Search, Prefix Sum, Randomized
    You are given a 0-indexed array of positive integers w where w[i] describes the weight of the ith index.
 

@@ -1,4 +1,5 @@
 /*
+   Custom Sort String
    Tags: Hash Table, String, Sorting
    You are given two strings order and s. All the characters of order are unique and were sorted in some custom order
    previously.

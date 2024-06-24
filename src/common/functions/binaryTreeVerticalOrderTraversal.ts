@@ -1,4 +1,5 @@
 /*
+   Binary Tree Vertical Order Traversal
    Tags: Hash Table, Tree, Depth-First Search, Breadth-First Search, Sorting, Binary Tree
    Given the root of a binary tree, return the vertical order traversal of its nodes' values. (i.e., from top to bottom, column by column).
 
@@ -45,31 +46,31 @@ class TreeNode {
 export const verticalOrder = (tree: TreeNode | null): number[][] => {
    interface Node {
       val: number,
-      x: number,
-      y: number,
+      column: number,
+      row: number,
    }
 
-   const getNodes = (tree: TreeNode, x: number, y: number): void => {
+   const getNodes = (tree: TreeNode, column: number, row: number): void => {
       nodes.push({
          val: tree.val,
-         x,
-         y,
+         column,
+         row,
       })
       if (tree.left !== null) {
-         const nextLeft = x - 1;
+         const nextLeft = column - 1;
          if (nextLeft < leftExtent) {
             leftExtent = nextLeft;
             verticalTraversal.push([]);
          }
-         getNodes(tree.left, nextLeft, y + 1);
+         getNodes(tree.left, nextLeft, row + 1);
       }
       if (tree.right !== null) {
-         const nextRight = x + 1;
+         const nextRight = column + 1;
          if (nextRight > rightExtent) {
             rightExtent = nextRight;
             verticalTraversal.push([]);
          }
-         getNodes(tree.right, nextRight, y + 1);
+         getNodes(tree.right, nextRight, row + 1);
       }
    }
 
@@ -81,16 +82,16 @@ export const verticalOrder = (tree: TreeNode | null): number[][] => {
    let rightExtent = 0;
    getNodes(tree, 0, 0);
    const sortedNodes = nodes.sort((nodeA, nodeB) => {
-      if (nodeA.x > nodeB.x)
+      if (nodeA.column > nodeB.column)
          return 1;
-      if (nodeA.x < nodeB.x)
+      if (nodeA.column < nodeB.column)
          return -1;
-      if (nodeA.y > nodeB.y)
+      if (nodeA.row > nodeB.row)
          return 1;
-      if (nodeA.y < nodeB.y)
+      if (nodeA.row < nodeB.row)
          return -1;
       return 0;
    })
-   sortedNodes.forEach(node => verticalTraversal[node.x - leftExtent].push(node.val));
+   sortedNodes.forEach(node => verticalTraversal[node.column - leftExtent].push(node.val));
    return verticalTraversal;
 }
