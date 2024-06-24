@@ -19,6 +19,11 @@
    Constraints:
    The number of nodes in the tree is in the range [0, 100].
    -100 <= Node.val <= 100
+
+   Complexity:
+   Time complexity: O(n)
+   Space complexity: O(n)
+      Where n is the number of nodes in the binary tree
  */
 
 class TreeNode {
