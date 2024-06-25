@@ -70,6 +70,10 @@
    At most n^2 calls will be made to move.
 
    Follow-up: Could you do better than O(n^2) per move() operation?
+
+   Complexity:
+   Time: move = O(4 * boardSize)
+   Space: O(boardSize^2)
  */
 
 export class TicTacToe {
