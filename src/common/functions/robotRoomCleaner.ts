@@ -67,7 +67,9 @@
 class Robot {
    // Returns true if the cell in front is open and robot moves into the cell.
    // Returns false if the cell in front is blocked and robot stays in the current cell.
-   move (): boolean {}
+   move (): boolean {
+      return true;
+   }
 
    // Robot will stay in the same cell after calling turnLeft/turnRight.
    // Each turn will be 90 degrees.
@@ -78,7 +80,10 @@ class Robot {
    turnLeft () {}
 
    // Clean the current cell.
-   clean (): {}
+   // @ts-ignore
+   clean (): {
+      //
+   }
 }
 
 export const cleanRoom = (robot: Robot) => {
