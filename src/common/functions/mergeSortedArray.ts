@@ -38,6 +38,10 @@
    -10^9 <= nums1[i], nums2[j] <= 10^9
 
    Follow up: Can you come up with an algorithm that runs in O(m + n) time?
+
+   Complexity:
+   Time complexity: O(m + n)
+   Space complexity: O(1)
  */
 
 export const merge = (targets: number[], totalTargets: number, merges: number[], totalMerges: number): void => {
