@@ -62,7 +62,7 @@ export const distanceK = (root: TreeNode | null, target: TreeNode | null, distan
       }
       const left = getPath(root.left);
       const right = getPath(root.right);
-      // @ts-expect-error
+      // @ts-ignore
       if (right || left) {
          path.push(root);
          return true;
