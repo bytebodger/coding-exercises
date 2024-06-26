@@ -39,19 +39,19 @@
  */
 
 export const countAndSay = (value: number): string => {
-   let result = '1' // the result of value = 1
+   let result = '1'; // the result of value = 1
    for (let i = 1; i < value; i++) { // enters only value > 1
-      let storage = '' // inner storage to give to real one after collecting the result
-      let counter = 1 // default count of result[j]
+      let storage = ''; // inner storage to give to real one after collecting the result
+      let counter = 1; // default count of result[j]
       for (let j = 0; j < result.length; j++) {
          if (result[j] === result[j + 1])
-            counter++ // if it repeats counter inceases
+            counter++; // if it repeats counter inceases
          else {
             storage += counter + result[j];
             counter = 1;
          } // else we add to storage and setting counter to default
       }
-      result = storage // to keep result we giving it back to result
+      result = storage; // to keep result we giving it back to result
    }
-   return result
+   return result;
 }
